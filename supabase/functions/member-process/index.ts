@@ -60,7 +60,7 @@ serve(async (req: Request) => {
       }
 
 
-      if (data.length === 0) { // forgot to verify users_acc leh
+      if (data.length === 0) {
         const { data, error } = await supabaseClient
           .from('dept_members')
           .insert({
@@ -75,6 +75,19 @@ serve(async (req: Request) => {
           .select();
 
         if (error) throw error
+
+        if (data.length === 1) { // forgot to verify users_acc leh - do it here
+          const { data, error } = await supabaseClient
+            .from('users_acc')
+            .update({
+              verified: true,
+              verified_at: Date().toISOString(),
+              verified_by_user: createdById,
+              verified_by_dept: deptUid
+            })
+            .match({ id: createdForId, verified: false });
+          if (error) throw error
+        }
 
         if (data.length === 1) {
           const { data, error } = await supabaseClient

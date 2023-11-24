@@ -51,7 +51,7 @@ serve(async (req: Request) => {
         if (data.length === 1) {
           return new Response(JSON.stringify({ user, data }), {
             headers: { 'Content-Type': 'application/json' },
-            status: 300,
+            status: 300, // already an auther
           });
         }
 

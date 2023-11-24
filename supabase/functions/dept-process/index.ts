@@ -213,7 +213,7 @@ serve(async (req: Request) => {
             'hosp_short_name': hospShortName,
             'full_name': fullName,
             'image_url': imageUrl,
-            // 'created_by_id': createdById,
+            // 'created_by_id': createdById, // no need update
             'phone_no1': phoneNo1,
             'info_history': infoHis
           })
